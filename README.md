@@ -68,6 +68,12 @@ Aquí se encuentra:
 8. Función que calcula la media del observable en el estado dado.
 9. Función que calcula la varianza del observable en el estado dado.
 10. Función que calcula el delta del observable en el estado dado.
+11. Función que calcula calcula los valores propios del observable.
+12. Función que calcula la probabilidad de que el sistema transite a alguno de los vectores propios después de la observación.
+13. Función que calcula, con una serie de matrices Un, el estado final a partir de un estado inicial.
+    Para resolver algunos puntos se importó la librería matplotlib, la cual requiere una previa instalación. Además, se importó la librería de numpy.
+
+Se incluyeron los ejercicios solicitados del capítulo 4 de Quantum computing for computer scientists en el archivo otrosEjercicios dentro del directorio TeoriaCuantica.
 
 Autora: Andrea Durán Vivas
 
