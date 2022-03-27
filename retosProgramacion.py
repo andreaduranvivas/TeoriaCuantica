@@ -100,6 +100,78 @@ def variance(sigma, psi):
     return ExpectedValue(psi, lev.multiplicacionMatrices(delta(sigma, psi), delta(sigma, psi)))
 
 
+"""================================Sección 4.3======================================"""
+
+
+def ChageNotation(A):
+    '''Función que aplica notación de números complejos para librería Numpy'''
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            A[i][j] = complex(A[i][j][0], A[i][j][1])
+    return A
+
+
+def UseNotationValue(A):
+    '''Función que aplica notación de números complejos para librería la librería implementada'''
+    real, imaginario, result = "", "", []
+    for i in range(len(A)):
+        pos = str(A[i]).find("+")
+        if pos == -1:
+            pos = str(A[i]).find("-")
+            # if pos == 0:
+            # pos = str(A[i])[1:].find("-")
+            # new_pos = str(A[i])[pos + 1:].find("-")
+            # if new_pos != -1:
+            # else:
+            # else:
+            # real = str(A[i])[:pos]
+            # imaginario = str(A[i])[pos+1:len(A[i]) - 2]
+
+        else:
+            real = str(A[i])[:pos]
+            imaginario = str(A[i])[pos + 1:len(A[i]) - 2]
+
+        result += [(float(real), float(imaginario))]
+        real, imaginario = "", ""
+
+    return result
+
+
+def EigenValues(sigma):
+    '''Genera todas las medidas que podría llegar a registrar respecto al observable (valores propios)'''
+    mat = np.array(ChageNotation(sigma))
+    eigenvalue, featurevector = np.linalg.eig(mat)
+
+    eigenvalue = str(eigenvalue).replace("[", "").replace("]", "").split()
+    print(eigenvalue)
+    eigenvalue = UseNotationValue(eigenvalue)
+    return eigenvalue
+
+
+def EigenVectors(sigma):
+    '''Genera todas las medidas que podría llegar a registrar respecto al observable (valores propios)'''
+    mat = np.array(ChageNotation(sigma))
+    eigenvalue, featurevector = np.linalg.eig(mat)
+    # print(featurevector)
+    # featurevector = str(featurevector).replace("[", "").replace("]", "").split()
+    # eigenvalue = UseNotationValue(eigenvalue)
+    return featurevector
+
+def ProbTransition(psi, e):
+    '''Retorna la probabilidad de transición'''
+    #e = EigenVectors(sigma)
+    return lc.moduloCuad(AmpliTransition(e, psi))
+
+def FinalState(U, psi, t):
+    '''Genera el estado final'''
+    index = 1
+    finaldin = U
+    while index < t:
+        din = lev.multiplicacionMatrices(U,U)
+        finaldin = din
+        index += 1
+    return lc.AccionMatVec(finaldin, psi)
+
 if __name__ == '__main__':
     matrizAdyacencia = [[(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0)],
     [(1/2,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0)],
@@ -125,4 +197,5 @@ if __name__ == '__main__':
     sigma = [[(0, 0), (0, -1)], [(0, 1), (0, 0)]]
     psi = [[(1 / sqrt(2), 0)], [(0, 1 / sqrt(2))]]
     varianza = variance(sigma, psi)
+
 

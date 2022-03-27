@@ -253,12 +253,12 @@ def unitaria(A):
             if i == j:
                 if B[i][j] != (1,0):
                     if (round(B[i][j][0], 10), round(B[i][j][1], 10)) != (1,0):
-                        return False
+                        return "no es unitaria"
             else:
                 if B[i][j] != (0,0):
-                    return False
+                    return "no es unitaria"
                 else:
-                    return True
+                    return "es unitaria"
 
 #Hermitiana
 def hermitiana(A):

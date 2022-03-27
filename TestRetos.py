@@ -50,6 +50,25 @@ class TestStringMethods(unittest.TestCase):
         varianza = retos.variance(sigma, psi)
         self.assertAlmostEqual(varianza, (0.0, 0))
 
+    def test_EigenValues(self):
+        sigma = [[(-1, 0), (0, -1)], [(0, 1), (1, 0)]]
+        PossibleValues = retos.EigenValues(sigma)
+        self.assertAlmostEqual(
+            PossibleValues, [(-1.41421356, 0.0), (1.41421356, 0.0)])
+        sigma = [[(1, 0), (0, -1)], [(0, 1), (2, 0)]]
+        PossibleValues = retos.EigenValues(sigma)
+        self.assertAlmostEqual(
+            PossibleValues, [(0.38196601, 0.0), (2.61803399, 0.0)])
+        # sigma = [[(-1, 0), (0, -1), (1, 0)],[(0, 1), (1, 0), (1, 0)],[(0, 1), (1, 0), (1, 0)]]
+        # print(q.EigenValues(sigma))
+
+    def test_ProbTransition(self):
+        e = [[(0, -0.923)], [(-0.382, 0)]]
+        psi = [[(1 / 2, 0)], [(1 / 2, 0)]]
+        prob = retos.ProbTransition(psi, e)
+        prob = round(prob, 2)
+        self.assertAlmostEqual(prob, 0.5)
+
 
 if __name__ == '__main__':
     unittest.main()
